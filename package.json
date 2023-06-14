@@ -1,5 +1,5 @@
 {
-	"name": "dev.storage",
+	"name": "devstorage",
 	"version": "0.0.0",
 	"license": "MIT",
 	"bin": "dist/cli.js",
@@ -16,6 +16,8 @@
 		"dist"
 	],
 	"dependencies": {
+		"axios": "^1.4.0",
+		"form-data": "^4.0.0",
 		"ink": "^4.2.0",
 		"pastel": "^2.0.2",
 		"react": "^18.2.0",
