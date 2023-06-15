@@ -9,7 +9,6 @@ export const addContent = async (filePath: string) => {
 
 	const filename = filePath.split('/').slice(-1)[0];
 
-	// add file to form data it is of type .zip
 	const fileBuffer = fs.createReadStream(filePath);
 	data.append('content', fileBuffer);
 
@@ -21,7 +20,7 @@ export const addContent = async (filePath: string) => {
 			url: `${BASE_URL}/content/add`,
 			data,
 			headers: {
-				Authorization: `Bearer API_KEY_HERE`,
+				Authorization: `Bearer ${process.env['ESTUARY_API_KEY']}`,
 				Accept: 'application/json',
 				...data.getHeaders(),
 			},

@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Text} from 'ink';
 import zod from 'zod';
 import {fetchGithubRepo} from '../utils/cli.js';
-import {addContent} from '../utils/estuary.js';
+import {upload} from '../utils/web3storage.js';
 
 export const options = zod.object({
 	url: zod.string().url().describe('Github Repository URL'),
@@ -24,17 +24,8 @@ export default function Upload({options}: Props) {
 
 	useEffect(() => {
 		if (file) {
-			addContent(file).then(res => {
-				if (res && res.code && res.code === 401) {
-					console.log('Plese add your Estuary API key');
-					process.exit(1);
-				}
-
-				console.log(res);
-
-				if (res && res.cid) {
-					setCid(res.cid);
-				}
+			upload(file).then(res => {
+				setCid(res);
 			});
 		}
 	}, [file]);
@@ -48,7 +39,7 @@ export default function Upload({options}: Props) {
 						{'\n'}
 					</Text>
 					<Text color="green">Success!</Text> Uploaded{' '}
-					<Text color="blue">{options.url}</Text> to Estuary node{' '}
+					<Text color="blue">{options.url}</Text> to web3storage node{' '}
 					<Text color="blue">{cid}</Text>
 				</Text>
 			) : (
